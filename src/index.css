@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-ink-50 text-ink-800 font-body;
+  }
+
+  :root {
+    --page-width: 210mm;
+    --page-height: 297mm;
+  }
+}
+
+@layer components {
+  .preview-page {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    @apply bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)] mx-auto;
+  }
+
+  .preview-page-inner {
+    @apply px-12 py-16;
+    min-height: var(--page-height);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #a08b63, transparent);
+  }
+
+  .gold-divider-vertical {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #a08b63, transparent);
+  }
+
+  .page-number {
+    @apply text-xs text-ink-300 text-center mt-auto pt-8;
+    font-feature-settings: "tnum";
+  }
+
+  .step-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .preview-page {
+    box-shadow: none !important;
+    page-break-after: always;
+  }
+}
