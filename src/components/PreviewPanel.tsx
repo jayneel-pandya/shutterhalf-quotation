@@ -6,7 +6,6 @@ import { PreviewClientInfo } from './preview/PreviewClientInfo'
 import { PreviewDayServices } from './preview/PreviewDayServices'
 import { PreviewPostProduction } from './preview/PreviewPostProduction'
 import { PreviewPricing } from './preview/PreviewPricing'
-import { PreviewTerms } from './preview/PreviewTerms'
 import { PreviewThankYou } from './preview/PreviewThankYou'
 import { DownloadButton } from './DownloadButton'
 import { Button } from './ui/Button'
@@ -45,7 +44,6 @@ export function PreviewPanel() {
           <PreviewDayServices />
           <PreviewPostProduction />
           <PreviewPricing />
-          <PreviewTerms />
           <PreviewThankYou />
         </PageProvider>
       </div>
