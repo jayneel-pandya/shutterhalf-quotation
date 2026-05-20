@@ -24,7 +24,7 @@ export function PreviewClientInfo() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-1 h-8 bg-brand-400 rounded-full" />
-            <h2 className="text-2xl font-display font-bold text-ink-800 tracking-wide">
+            <h2 className="text-3xl font-display font-bold text-ink-800 tracking-wide">
               Client Information
             </h2>
           </div>
@@ -43,10 +43,10 @@ export function PreviewClientInfo() {
               key={label}
               className="flex flex-col sm:flex-row sm:items-baseline py-3 border-b border-ink-50 last:border-b-0"
             >
-              <span className="sm:w-44 text-xs text-ink-500 uppercase tracking-wider font-semibold">
+              <span className="sm:w-44 text-sm text-ink-500 uppercase tracking-wider font-bold">
                 {label}
               </span>
-              <span className="text-sm text-ink-800 font-semibold">
+              <span className="text-base text-ink-800 font-bold">
                 {value || '—'}
               </span>
             </div>

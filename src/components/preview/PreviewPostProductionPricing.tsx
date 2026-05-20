@@ -15,7 +15,7 @@ export function PreviewPostProductionPricing() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-1 h-8 bg-brand-400 rounded-full" />
-            <h2 className="text-2xl font-display font-bold text-ink-800 tracking-wide">
+            <h2 className="text-3xl font-display font-bold text-ink-800 tracking-wide">
               Post Production & Pricing
             </h2>
           </div>
@@ -31,18 +31,18 @@ export function PreviewPostProductionPricing() {
         <div className="flex-1 flex flex-col">
           {items.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-base font-display font-bold text-ink-700 uppercase tracking-wider mb-4">
+              <h3 className="text-lg font-display font-bold text-ink-700 uppercase tracking-wider mb-4">
                 Post Production
               </h3>
               <div className="space-y-1">
                 {items.map((item) => (
                   <div key={item.name} className="flex items-center gap-3 py-1.5 border-b border-ink-50">
                     <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                    <span className="flex-1 text-sm font-medium text-ink-800">{item.name}</span>
+                    <span className="flex-1 text-base font-bold text-ink-800">{item.name}</span>
                     {item.value > 0 && (
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] text-ink-500 uppercase tracking-wider font-medium">Approx</span>
-                        <span className="text-sm font-bold text-ink-800 tabular-nums">
+                        <span className="text-xs text-ink-500 uppercase tracking-wider font-bold">Approx</span>
+                        <span className="text-base font-bold text-ink-800 tabular-nums">
                           {item.value}{item.unit ? ` ${item.unit}` : ''}
                         </span>
                       </div>
@@ -57,10 +57,10 @@ export function PreviewPostProductionPricing() {
             <div className="mt-auto">
               <div className="w-full gold-divider mb-6" />
               <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-ink-100">
-                <p className="text-xs text-ink-500 uppercase tracking-wider font-semibold text-center mb-2">
+                <p className="text-sm text-ink-500 uppercase tracking-wider font-bold text-center mb-2">
                   Total Package Cost
                 </p>
-                <p className="text-4xl font-body font-bold text-ink-900 text-center tracking-tight break-words">
+                <p className="text-5xl font-body font-bold text-ink-900 text-center tracking-tight break-words">
                   ₹ {packageCost}
                 </p>
               </div>

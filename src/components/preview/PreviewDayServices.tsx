@@ -45,7 +45,7 @@ function BatchPage({ batch }: {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-1 h-8 bg-brand-400 rounded-full" />
-            <h2 className="text-2xl font-display font-bold text-ink-800 tracking-wide">
+            <h2 className="text-3xl font-display font-bold text-ink-800 tracking-wide">
               Event Coverage
             </h2>
           </div>
@@ -61,7 +61,7 @@ function BatchPage({ batch }: {
         <div className="space-y-8">
           {batch.map((day, di) => (
             <div key={di}>
-              <h3 className="text-lg font-display font-bold text-ink-800 tracking-wide mb-4">
+              <h3 className="text-xl font-display font-bold text-ink-800 tracking-wide mb-4">
                 {day.label}
               </h3>
 
@@ -72,10 +72,10 @@ function BatchPage({ batch }: {
                     className="flex items-center gap-3 py-1.5 border-b border-ink-50"
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
-                    <span className="flex-1 text-sm font-semibold text-ink-800">{svc.name}</span>
+                    <span className="flex-1 text-base font-bold text-ink-800">{svc.name}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-ink-500 font-semibold">Qty:</span>
-                      <span className="text-sm font-bold text-ink-800 tabular-nums">
+                      <span className="text-sm text-ink-500 font-bold">Qty:</span>
+                      <span className="text-base font-bold text-ink-800 tabular-nums">
                         {svc.quantity}
                       </span>
                     </div>
