@@ -3,8 +3,7 @@ import { useQuotationStore } from '../store/useQuotationStore'
 import { PageProvider } from './preview/PageNumberContext'
 import { PreviewClientInfo } from './preview/PreviewClientInfo'
 import { PreviewDayServices } from './preview/PreviewDayServices'
-import { PreviewPostProduction } from './preview/PreviewPostProduction'
-import { PreviewPricing } from './preview/PreviewPricing'
+import { PreviewPostProductionPricing } from './preview/PreviewPostProductionPricing'
 import { DownloadButton } from './DownloadButton'
 import { Button } from './ui/Button'
 import { ArrowLeft, Eye } from 'lucide-react'
@@ -40,8 +39,7 @@ export function PreviewPanel() {
           <PageProvider>
             <PreviewClientInfo />
             <PreviewDayServices />
-            <PreviewPostProduction />
-            <PreviewPricing />
+            <PreviewPostProductionPricing />
           </PageProvider>
         </div>
       </div>

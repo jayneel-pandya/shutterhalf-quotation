@@ -2,6 +2,7 @@ import { useState, type RefObject } from 'react'
 import { useQuotationStore } from '../store/useQuotationStore'
 import { Button } from './ui/Button'
 import { generatePDF } from '../utils/pdfGenerator'
+import { submitToSheet } from '../utils/submitToSheet'
 import { Download, Loader2 } from 'lucide-react'
 
 interface DownloadButtonProps {
@@ -10,12 +11,23 @@ interface DownloadButtonProps {
 
 export function DownloadButton({ previewRef }: DownloadButtonProps) {
   const [loading, setLoading] = useState(false)
-  const clientName = useQuotationStore((s) => s.clientName)
+  const store = useQuotationStore()
 
   const handleDownload = async () => {
     setLoading(true)
     try {
-      await generatePDF(previewRef, clientName)
+      const {
+        clientName, contactNumber, venue, location,
+        eventDates, days, postProduction, packageCost,
+      } = store
+
+      await Promise.all([
+        generatePDF(previewRef, clientName),
+        submitToSheet({
+          clientName, contactNumber, venue, location,
+          eventDates, days, postProduction, packageCost,
+        }),
+      ])
     } catch (err) {
       console.error('PDF generation failed:', err)
     } finally {

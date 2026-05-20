@@ -65,11 +65,19 @@ export async function generatePDF(previewRef: RefObject<HTMLDivElement | null>, 
   const endDoc = await PDFDocument.load(endBytes, { ignoreEncryption: true })
   const middleDoc = await PDFDocument.load(middleBytes)
 
+  const [targetW, targetH] = (() => {
+    const first = startDoc.getPage(0)
+    return [first.getWidth(), first.getHeight()]
+  })()
+
   const startPages = await mergedPdf.copyPages(startDoc, startDoc.getPageIndices())
   for (const page of startPages) mergedPdf.addPage(page)
 
   const midPages = await mergedPdf.copyPages(middleDoc, middleDoc.getPageIndices())
-  for (const page of midPages) mergedPdf.addPage(page)
+  for (const page of midPages) {
+    page.setSize(targetW, targetH)
+    mergedPdf.addPage(page)
+  }
 
   const endPages = await mergedPdf.copyPages(endDoc, endDoc.getPageIndices())
   for (const page of endPages) mergedPdf.addPage(page)
