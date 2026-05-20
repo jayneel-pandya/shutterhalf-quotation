@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
-import { PDFDocument } from 'pdf-lib'
+import { PDFDocument, PageSizes } from 'pdf-lib'
 
 const A4_WIDTH_MM = 210
 const CANVAS_SCALE = 2
@@ -75,6 +75,11 @@ export async function generatePDF(previewRef: RefObject<HTMLDivElement | null>):
 
   const endPages = await mergedPdf.copyPages(endDoc, endDoc.getPageIndices())
   for (const page of endPages) mergedPdf.addPage(page)
+
+  const [a4w, a4h] = PageSizes.A4
+  for (const page of mergedPdf.getPages()) {
+    page.setSize(a4w, a4h)
+  }
 
   const mergedBytes = await mergedPdf.save()
 

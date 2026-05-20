@@ -33,7 +33,6 @@ export function PackagePricing() {
               id="packageCost"
               value={packageCost}
               onChange={(e) => setPackageCost(e.target.value)}
-              placeholder="e.g. ₹3,15,000/-"
               className="pl-16 text-3xl sm:text-4xl font-display font-bold py-5 h-auto tracking-wide"
             />
           </div>

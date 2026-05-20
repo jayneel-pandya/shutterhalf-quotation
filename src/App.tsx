@@ -7,14 +7,13 @@ import { PostProductionSection } from './components/PostProductionSection'
 import { PackagePricing } from './components/PackagePricing'
 import { PreviewPanel } from './components/PreviewPanel'
 import { Button } from './components/ui/Button'
-import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react'
 
 const TOTAL_STEPS = 6
 
 export default function App() {
   const currentStep = useQuotationStore((s) => s.currentStep)
   const setCurrentStep = useQuotationStore((s) => s.setCurrentStep)
-  const loadSampleData = useQuotationStore((s) => s.loadSampleData)
   const resetAll = useQuotationStore((s) => s.resetAll)
 
   const stepComponents = [
@@ -43,16 +42,10 @@ export default function App() {
               <p className="text-[10px] sm:text-[11px] text-ink-400 tracking-wide truncate">Quotation Generator</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <Button variant="ghost" size="sm" onClick={loadSampleData}>
-              <Sparkles className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Sample Data</span>
-            </Button>
-            <Button variant="ghost" size="sm" onClick={resetAll}>
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Reset</span>
-            </Button>
-          </div>
+          <Button variant="ghost" size="sm" onClick={resetAll}>
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Reset</span>
+          </Button>
         </div>
       </header>
 

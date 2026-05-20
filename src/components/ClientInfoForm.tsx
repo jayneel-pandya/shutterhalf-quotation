@@ -24,11 +24,11 @@ export function ClientInfoForm() {
   }
 
   const fields = [
-    { id: 'clientName', label: 'Client Name', value: clientName, icon: User, placeholder: 'e.g. Siddharth Nair', type: 'text' },
-    { id: 'contactNumber', label: 'Contact Number', value: contactNumber, icon: Phone, placeholder: 'e.g. +61426913249', type: 'tel' },
-    { id: 'venue', label: 'Venue', value: venue, icon: MapPin, placeholder: 'e.g. Ananta', type: 'text' },
-    { id: 'location', label: 'Location', value: location, icon: Globe, placeholder: 'e.g. Rajkot & Ahmedabad', type: 'text' },
-    { id: 'eventDates', label: 'Event Dates', value: eventDates, icon: Calendar, placeholder: 'e.g. 21,22,23 Feb 2026', type: 'text' },
+    { id: 'clientName', label: 'Client Name', value: clientName, icon: User, type: 'text' },
+    { id: 'contactNumber', label: 'Contact Number', value: contactNumber, icon: Phone, type: 'tel' },
+    { id: 'venue', label: 'Venue', value: venue, icon: MapPin, type: 'text' },
+    { id: 'location', label: 'Location', value: location, icon: Globe, type: 'text' },
+    { id: 'eventDates', label: 'Event Dates', value: eventDates, icon: Calendar, type: 'text' },
   ]
 
   return (
@@ -46,7 +46,7 @@ export function ClientInfoForm() {
       </CardHeader>
       <CardBody>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {fields.map(({ id, label, value, icon: Icon, placeholder, type }) => (
+          {fields.map(({ id, label, value, icon: Icon, type }) => (
             <div key={id} className="relative">
               <div className="absolute left-3 top-[38px] pointer-events-none">
                 <Icon className="w-4 h-4 text-ink-300" />
@@ -56,7 +56,6 @@ export function ClientInfoForm() {
                 label={label}
                 value={value}
                 onChange={(e) => setters[id](e.target.value)}
-                placeholder={placeholder}
                 type={type}
                 className="pl-10"
               />

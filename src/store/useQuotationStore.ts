@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import type { Day, PostProductionItem } from '../types'
 import { AVAILABLE_POST_PRODUCTION } from '../constants/services'
-import { sampleDays, samplePostProduction } from '../utils/sampleData'
 
 let idCounter = 0
 const genId = () => `id_${++idCounter}_${Math.random().toString(36).slice(2, 6)}`
@@ -35,15 +34,7 @@ interface QuotationState {
   updatePostProductionValue: (name: string, value: number) => void
 
   setPackageCost: (cost: string) => void
-  loadSampleData: () => void
   resetAll: () => void
-}
-
-function createInitialDays(): Day[] {
-  return [
-    { id: genId(), label: 'DAY 1', services: [] },
-    { id: genId(), label: 'DAY 2', services: [] },
-  ]
 }
 
 export const useQuotationStore = create<QuotationState>((set) => ({
@@ -52,7 +43,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   venue: '',
   location: '',
   eventDates: '',
-  days: createInitialDays(),
+  days: [],
   postProduction: [],
   packageCost: '',
   currentStep: 0,
@@ -130,18 +121,6 @@ export const useQuotationStore = create<QuotationState>((set) => ({
 
   setPackageCost: (cost) => set({ packageCost: cost }),
 
-  loadSampleData: () =>
-    set({
-      clientName: 'Siddharth Nair',
-      contactNumber: '+61426913249',
-      venue: 'Ananta',
-      location: 'Rajkot & Ahmedabad',
-      eventDates: '21,22,23 Feb 2026',
-      days: sampleDays.map((d) => ({ ...d, id: genId() })),
-      postProduction: samplePostProduction.map((p) => ({ ...p })),
-      packageCost: '₹3,15,000/-',
-    }),
-
   resetAll: () =>
     set({
       clientName: '',
@@ -149,7 +128,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
       venue: '',
       location: '',
       eventDates: '',
-      days: createInitialDays(),
+      days: [],
       postProduction: [],
       packageCost: '',
       currentStep: 0,
