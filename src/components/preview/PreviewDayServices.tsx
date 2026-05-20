@@ -29,15 +29,14 @@ export function PreviewDayServices() {
   return (
     <>
       {pageBreaks.map((batch, bi) => (
-        <BatchPage key={bi} batch={batch} allDays={days} />
+        <BatchPage key={bi} batch={batch} />
       ))}
     </>
   )
 }
 
-function BatchPage({ batch, allDays }: {
+function BatchPage({ batch }: {
   batch: { label: string; services: { name: string; quantity: number }[] }[]
-  allDays: { label: string }[]
 }) {
   const pageNum = usePageNumber()
   return (
