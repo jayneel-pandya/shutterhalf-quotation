@@ -1,4 +1,5 @@
 import type { Day, PostProductionItem } from '../types'
+import { AVAILABLE_POST_PRODUCTION } from '../constants/services'
 
 let idCounter = 0
 const genId = () => `samp_${++idCounter}_${Math.random().toString(36).slice(2, 6)}`
@@ -10,10 +11,10 @@ export const sampleDays: Day[] = [
     services: [
       { name: 'Cinematographer', quantity: 1 },
       { name: 'Candid Photographer', quantity: 1 },
-      { name: 'Family Photographer', quantity: 1 },
       { name: 'Ritual Photographer', quantity: 1 },
       { name: 'Ritual Videographer', quantity: 1 },
       { name: 'Drone', quantity: 1 },
+      { name: 'Live Setup', quantity: 1 },
     ],
   },
   {
@@ -39,13 +40,9 @@ export const sampleDays: Day[] = [
   },
 ]
 
-export const samplePostProduction: PostProductionItem[] = [
-  { name: 'Cinematic Highlight', quantity: 1 },
-  { name: 'Cinematic Teaser', quantity: 1 },
-  { name: 'Short Film', quantity: 1 },
-  { name: 'Ritual Video', quantity: 1 },
-  { name: 'Edited Photos', quantity: 1 },
-  { name: 'Wedding Magazine', quantity: 1 },
-  { name: 'Instagram Reels', quantity: 2 },
-  { name: 'Wedding Album', quantity: 2 },
-]
+export const samplePostProduction: PostProductionItem[] = AVAILABLE_POST_PRODUCTION.map((pp) => ({
+  name: pp.name,
+  spec: pp.spec,
+  unit: pp.unit,
+  value: 0,
+}))

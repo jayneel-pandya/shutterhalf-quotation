@@ -11,7 +11,15 @@ export interface Day {
 
 export interface PostProductionItem {
   name: string
-  quantity: number
+  spec: string
+  unit: string
+  value: number
+}
+
+export interface AvailablePostProduction {
+  name: string
+  spec: string
+  unit: string
 }
 
 export interface QuotationData {

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { Day, PostProductionItem } from '../types'
+import { AVAILABLE_POST_PRODUCTION } from '../constants/services'
 import { sampleDays, samplePostProduction } from '../utils/sampleData'
 
 let idCounter = 0
@@ -31,7 +32,7 @@ interface QuotationState {
   updateServiceQuantity: (dayId: string, serviceName: string, quantity: number) => void
 
   togglePostProduction: (name: string) => void
-  updatePostProductionQuantity: (name: string, quantity: number) => void
+  updatePostProductionValue: (name: string, value: number) => void
 
   setPackageCost: (cost: string) => void
   loadSampleData: () => void
@@ -111,13 +112,19 @@ export const useQuotationStore = create<QuotationState>((set) => ({
       if (exists) {
         return { postProduction: state.postProduction.filter((p) => p.name !== name) }
       }
-      return { postProduction: [...state.postProduction, { name, quantity: 1 }] }
+      const found = AVAILABLE_POST_PRODUCTION.find((a) => a.name === name)
+      return {
+        postProduction: [
+          ...state.postProduction,
+          { name, spec: found?.spec || '', unit: found?.unit || '', value: 0 },
+        ],
+      }
     }),
 
-  updatePostProductionQuantity: (name, quantity) =>
+  updatePostProductionValue: (name, value) =>
     set((state) => ({
       postProduction: state.postProduction.map((p) =>
-        p.name === name ? { ...p, quantity: Math.max(1, quantity) } : p
+        p.name === name ? { ...p, value } : p
       ),
     })),
 

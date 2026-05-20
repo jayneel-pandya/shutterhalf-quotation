@@ -1,35 +1,25 @@
-import type { AvailableService } from '../types'
+import type { AvailableService, AvailablePostProduction } from '../types'
 
 export const AVAILABLE_SERVICES: AvailableService[] = [
   { name: 'Cinematographer', category: 'Video' },
   { name: 'Candid Photographer', category: 'Photo' },
-  { name: 'Family Photographer', category: 'Photo' },
   { name: 'Ritual Photographer', category: 'Photo' },
   { name: 'Ritual Videographer', category: 'Video' },
   { name: 'Drone', category: 'Equipment' },
-  { name: 'Traditional Photographer', category: 'Photo' },
-  { name: 'Associate Photographer', category: 'Photo' },
-  { name: 'Video Editor', category: 'Post' },
-  { name: 'Photo Editor', category: 'Post' },
-  { name: 'Spot Lighting', category: 'Equipment' },
-  { name: 'LED Wall', category: 'Equipment' },
+  { name: 'Live Setup', category: 'Equipment' },
+  { name: 'FPV Drone', category: 'Equipment' },
 ]
 
-export const AVAILABLE_POST_PRODUCTION = [
-  { name: 'Cinematic Teaser', category: 'Video' },
-  { name: 'Cinematic Highlight', category: 'Video' },
-  { name: 'Short Film', category: 'Video' },
-  { name: 'Ritual Video', category: 'Video' },
-  { name: 'Highlight Video', category: 'Video' },
-  { name: 'Instagram Reels', category: 'Video' },
-  { name: 'Edited Photos', category: 'Photo' },
-  { name: 'Wedding Album', category: 'Print' },
-  { name: 'Wedding Magazine', category: 'Print' },
-  { name: 'Photo Book', category: 'Print' },
-  { name: 'Raw Data Delivery', category: 'Data' },
-  { name: 'Digital Gallery', category: 'Online' },
-  { name: 'Same Day Edit', category: 'Video' },
-  { name: 'Pre-Wedding Film', category: 'Video' },
+export const AVAILABLE_POST_PRODUCTION: AvailablePostProduction[] = [
+  { name: 'Insta Reels', spec: '30/40 seconds', unit: 'seconds' },
+  { name: 'Cinematic Teaser', spec: '50 seconds', unit: 'seconds' },
+  { name: 'Cinematic Highlight', spec: '5/6 minutes', unit: 'minutes' },
+  { name: 'Cinematic Short Film', spec: '15/20 minutes', unit: 'minutes' },
+  { name: 'Traditional Film', spec: '1/2 hours / Depends on data', unit: 'hours' },
+  { name: 'Edited Photos (Master data)', spec: 'Master data', unit: '' },
+  { name: 'Edited Photos (Collectives)', spec: 'Collectives', unit: '' },
+  { name: 'Same Day Highlight', spec: '2/3 minutes', unit: 'minutes' },
+  { name: 'All Raw Data Given', spec: '', unit: '' },
 ]
 
 export const DAY_LABEL_PRESETS = [
