@@ -41,19 +41,9 @@
   }
 
   .preview-scroll-wrap {
-    display: flex;
-    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     padding-bottom: 16px;
-  }
-
-  .preview-mobile-scale {
-    transform-origin: top center;
-  }
-
-  @media (max-width: 640px) {
-    .preview-page {
-      margin: 0 auto;
-    }
   }
 
   .gold-divider {

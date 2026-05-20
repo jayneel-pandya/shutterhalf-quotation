@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useQuotationStore } from '../store/useQuotationStore'
 import { PageProvider } from './preview/PageNumberContext'
 import { PreviewClientInfo } from './preview/PreviewClientInfo'
@@ -12,22 +12,6 @@ export function PreviewPanel() {
   const currentStep = useQuotationStore((s) => s.currentStep)
   const setCurrentStep = useQuotationStore((s) => s.setCurrentStep)
   const previewRef = useRef<HTMLDivElement>(null)
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const [scale, setScale] = useState(1)
-
-  useEffect(() => {
-    function updateScale() {
-      const wrap = wrapRef.current
-      if (!wrap) return
-      const screenW = wrap.clientWidth - 4
-      const pageW = 793
-      const s = screenW < pageW ? screenW / pageW : 1
-      setScale(Number(s.toFixed(4)))
-    }
-    updateScale()
-    window.addEventListener('resize', updateScale)
-    return () => window.removeEventListener('resize', updateScale)
-  }, [])
 
   return (
     <div className="space-y-6">
@@ -50,15 +34,13 @@ export function PreviewPanel() {
         </div>
       </div>
 
-      <div className="preview-scroll-wrap" ref={wrapRef}>
-        <div className="preview-mobile-scale" style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}>
-          <div ref={previewRef} className="space-y-8 pb-8">
-            <PageProvider>
-              <PreviewClientInfo />
-              <PreviewDayServices />
-              <PreviewPostProductionPricing />
-            </PageProvider>
-          </div>
+      <div className="preview-scroll-wrap">
+        <div ref={previewRef} className="space-y-8 pb-8">
+          <PageProvider>
+            <PreviewClientInfo />
+            <PreviewDayServices />
+            <PreviewPostProductionPricing />
+          </PageProvider>
         </div>
       </div>
     </div>
