@@ -2,16 +2,6 @@ import { useQuotationStore } from '../../store/useQuotationStore'
 import { usePageNumber } from './PageNumberContext'
 import { BASE_URL } from '../../utils/baseUrl'
 
-const svcIcons: Record<string, string> = {
-  Cinematographer: '🎥',
-  'Candid Photographer': '📷',
-  'Ritual Photographer': '📸',
-  'Ritual Videographer': '🎬',
-  Drone: '🛸',
-  'Live Setup': '🔧',
-  'FPV Drone': '🛩️',
-}
-
 export function PreviewDayServices() {
   const days = useQuotationStore((s) => s.days)
 
@@ -72,27 +62,20 @@ function BatchPage({ batch, allDays }: {
         <div className="space-y-8">
           {batch.map((day, di) => (
             <div key={di}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-7 h-7 rounded-md bg-brand-100 flex items-center justify-center">
-                  <span className="text-xs font-bold text-brand-700">
-                    {allDays.findIndex((d) => d.label === day.label) + 1}
-                  </span>
-                </div>
-                <h3 className="text-lg font-display font-bold text-ink-800 tracking-wide">
-                  {day.label}
-                </h3>
-              </div>
+              <h3 className="text-lg font-display font-bold text-ink-800 tracking-wide mb-4">
+                {day.label}
+              </h3>
 
-              <div className="space-y-0.5 ml-10">
+              <div className="space-y-1">
                 {day.services.map((svc: { name: string; quantity: number }) => (
                   <div
                     key={svc.name}
-                    className="flex items-center gap-3 py-2 px-3 rounded-lg bg-ink-50/50"
+                    className="flex items-center gap-3 py-1.5 border-b border-ink-50"
                   >
-                    <span className="text-base">{svcIcons[svc.name] || '📋'}</span>
-                    <span className="flex-1 text-sm font-medium text-ink-800">{svc.name}</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                    <span className="flex-1 text-sm font-semibold text-ink-800">{svc.name}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-ink-500 font-medium">Qty:</span>
+                      <span className="text-xs text-ink-500 font-semibold">Qty:</span>
                       <span className="text-sm font-bold text-ink-800 tabular-nums">
                         {svc.quantity}
                       </span>

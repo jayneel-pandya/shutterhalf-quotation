@@ -60,7 +60,7 @@ export function PreviewPostProductionPricing() {
                 <p className="text-xs text-ink-500 uppercase tracking-wider font-semibold text-center mb-2">
                   Total Package Cost
                 </p>
-                <p className="text-4xl font-display font-bold text-ink-900 text-center tracking-wide break-words">
+                <p className="text-4xl font-body font-bold text-ink-900 text-center tracking-tight break-words">
                   ₹ {packageCost}
                 </p>
               </div>
