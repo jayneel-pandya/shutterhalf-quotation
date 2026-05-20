@@ -15,27 +15,31 @@ export function PackagePricing() {
             <IndianRupee className="w-5 h-5 text-brand-700" />
           </div>
           <div>
-            <h2 className="text-lg font-display font-semibold text-ink-800">Package Pricing</h2>
-            <p className="text-xs text-ink-400">Set the total package cost for the quotation</p>
+            <h2 className="text-xl font-display font-semibold text-ink-800">Package Pricing</h2>
+            <p className="text-sm text-ink-400">Set the total package cost for the quotation</p>
           </div>
         </div>
       </CardHeader>
       <CardBody>
-        <div className="relative">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-            <IndianRupee className="w-6 h-6 text-ink-300" />
+        <div className="space-y-2">
+          <label className="block text-sm sm:text-base font-medium text-ink-600 uppercase tracking-wider">
+            Package Cost (Total)
+          </label>
+          <div className="relative">
+            <div className="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+              <IndianRupee className="w-7 h-7 text-ink-300" />
+            </div>
+            <Input
+              id="packageCost"
+              value={packageCost}
+              onChange={(e) => setPackageCost(e.target.value)}
+              placeholder="e.g. ₹3,15,000/-"
+              className="pl-16 text-3xl sm:text-4xl font-display font-bold py-5 h-auto tracking-wide"
+            />
           </div>
-          <Input
-            id="packageCost"
-            label="Package Cost (Total)"
-            value={packageCost}
-            onChange={(e) => setPackageCost(e.target.value)}
-            placeholder="e.g. ₹3,15,000/-"
-            className="pl-14 text-2xl font-display font-bold py-4 h-auto"
-          />
         </div>
-        <div className="mt-4 flex items-center gap-2 text-sm text-ink-400">
-          <Tag className="w-4 h-4" />
+        <div className="mt-4 flex items-center gap-2 text-sm sm:text-base text-ink-400">
+          <Tag className="w-4 h-4 sm:w-5 sm:h-5" />
           Enter the total amount including all services and post-production
         </div>
       </CardBody>

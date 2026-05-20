@@ -24,14 +24,25 @@
     height: 297mm;
     overflow: hidden;
     @apply bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)] mx-auto;
+    background-image: url('/studioshutterhalf/blank-photo.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .preview-page-inner {
-    @apply px-12 py-16;
+    @apply px-8 sm:px-12 py-12 sm:py-16;
     height: 297mm;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+  }
+
+  .preview-scroll-wrap {
+    @apply overflow-x-auto pb-4 -mx-4 sm:-mx-6 px-4 sm:px-6;
+    -webkit-overflow-scrolling: touch;
   }
 
   .gold-divider {

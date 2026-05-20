@@ -7,7 +7,7 @@ import { PostProductionSection } from './components/PostProductionSection'
 import { PackagePricing } from './components/PackagePricing'
 import { PreviewPanel } from './components/PreviewPanel'
 import { Button } from './components/ui/Button'
-import { ArrowLeft, ArrowRight, FileText, RotateCcw, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react'
 
 const TOTAL_STEPS = 6
 
@@ -29,26 +29,28 @@ export default function App() {
   return (
     <div className="min-h-screen bg-ink-50">
       <header className="bg-white border-b border-ink-100 no-print">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-ink-800 flex items-center justify-center">
-              <FileText className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-display font-bold text-ink-800 leading-tight">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <img
+              src="/studioshutterhalf/logo.svg"
+              alt="Studio Shutter Half"
+              className="h-9 sm:h-10 w-auto shrink-0"
+            />
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-lg font-display font-bold text-ink-800 leading-tight truncate">
                 Studio Shutter Half
               </h1>
-              <p className="text-[11px] text-ink-400 tracking-wide">Quotation Generator</p>
+              <p className="text-[10px] sm:text-[11px] text-ink-400 tracking-wide truncate">Quotation Generator</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <Button variant="ghost" size="sm" onClick={loadSampleData}>
               <Sparkles className="w-3.5 h-3.5" />
-              Sample Data
+              <span className="hidden sm:inline">Sample Data</span>
             </Button>
             <Button variant="ghost" size="sm" onClick={resetAll}>
               <RotateCcw className="w-3.5 h-3.5" />
-              Reset
+              <span className="hidden sm:inline">Reset</span>
             </Button>
           </div>
         </div>
@@ -74,7 +76,7 @@ export default function App() {
               disabled={currentStep === 0}
             >
               <ArrowLeft className="w-4 h-4" />
-              Back
+              <span className="hidden sm:inline">Back</span>
             </Button>
 
             <div className="flex items-center gap-3">
@@ -86,7 +88,7 @@ export default function App() {
                 size="md"
                 onClick={() => setCurrentStep(currentStep + 1)}
               >
-                Next
+                <span className="hidden sm:inline">Next</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>

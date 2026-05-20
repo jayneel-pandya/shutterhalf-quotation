@@ -111,7 +111,7 @@ export function DayBuilder() {
           ))}
         </div>
         {days.length > 0 && (
-          <div className="mt-4 flex items-center gap-2">
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             {DAY_LABEL_PRESETS.filter(
               (l) => !days.some((d) => d.label === l)
             ).slice(0, 6).map((preset) => (

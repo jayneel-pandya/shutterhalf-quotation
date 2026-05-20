@@ -20,11 +20,18 @@ export function PreviewClientInfo() {
   return (
     <div data-preview-page className="preview-page">
       <div className="preview-page-inner">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-1 h-8 bg-brand-400 rounded-full" />
-          <h2 className="text-xl font-display font-semibold text-ink-800 tracking-wide">
-            Client Information
-          </h2>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-8 bg-brand-400 rounded-full" />
+            <h2 className="text-xl font-display font-semibold text-ink-800 tracking-wide">
+              Client Information
+            </h2>
+          </div>
+          <img
+            src="/studioshutterhalf/logo.svg"
+            alt="Studio Shutter Half"
+            className="h-7 w-auto opacity-80"
+          />
         </div>
 
         <div className="w-full gold-divider mb-8" />
@@ -33,9 +40,9 @@ export function PreviewClientInfo() {
           {details.map(({ label, value }) => (
             <div
               key={label}
-              className="flex items-baseline py-3 border-b border-ink-50 last:border-b-0"
+              className="flex flex-col sm:flex-row sm:items-baseline py-3 border-b border-ink-50 last:border-b-0"
             >
-              <span className="w-44 text-xs text-ink-400 uppercase tracking-wider font-medium">
+              <span className="sm:w-44 text-xs text-ink-400 uppercase tracking-wider font-medium">
                 {label}
               </span>
               <span className="text-sm text-ink-800 font-medium">

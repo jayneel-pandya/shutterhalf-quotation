@@ -16,32 +16,34 @@ export function PreviewPanel() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between no-print">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between no-print gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-brand-100 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-brand-100 flex items-center justify-center shrink-0">
             <Eye className="w-5 h-5 text-brand-700" />
           </div>
-          <div>
-            <h2 className="text-lg font-display font-semibold text-ink-800">Quotation Preview</h2>
-            <p className="text-xs text-ink-400">Review the complete quotation before downloading</p>
+          <div className="min-w-0">
+            <h2 className="text-lg font-display font-semibold text-ink-800 truncate">Quotation Preview</h2>
+            <p className="text-xs text-ink-400 truncate">Review the complete quotation before downloading</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" onClick={() => setCurrentStep(currentStep - 1)}>
             <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Edit
+            <span className="hidden sm:inline">Back to Edit</span>
           </Button>
           <DownloadButton previewRef={previewRef} />
         </div>
       </div>
 
-      <div ref={previewRef} className="space-y-8 pb-8">
-        <PageProvider>
-          <PreviewClientInfo />
-          <PreviewDayServices />
-          <PreviewPostProduction />
-          <PreviewPricing />
-        </PageProvider>
+      <div className="preview-scroll-wrap">
+        <div ref={previewRef} className="space-y-8 pb-8">
+          <PageProvider>
+            <PreviewClientInfo />
+            <PreviewDayServices />
+            <PreviewPostProduction />
+            <PreviewPricing />
+          </PageProvider>
+        </div>
       </div>
     </div>
   )
