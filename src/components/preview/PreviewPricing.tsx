@@ -32,7 +32,7 @@ export function PreviewPricing() {
                 Total Package Cost
               </p>
               <p className="text-3xl sm:text-4xl font-display font-bold text-ink-800 text-center tracking-wide break-words">
-                {packageCost || 'Not specified'}
+                ₹ {packageCost || 'Not specified'}
               </p>
             </div>
           </div>

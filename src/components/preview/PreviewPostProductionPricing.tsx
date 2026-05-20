@@ -61,7 +61,7 @@ export function PreviewPostProductionPricing() {
                   Total Package Cost
                 </p>
                 <p className="text-3xl font-display font-bold text-ink-800 text-center tracking-wide break-words">
-                  {packageCost}
+                  ₹ {packageCost}
                 </p>
               </div>
             </div>
