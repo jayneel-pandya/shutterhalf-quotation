@@ -38,8 +38,7 @@ export async function generatePDF(previewRef: RefObject<HTMLDivElement | null>):
   const allPages = container.querySelectorAll<HTMLElement>('[data-preview-page]')
   if (allPages.length < 3) return
 
-  // Middle pages = all except first (cover) and last (thank you)
-  const middleElements = Array.from(allPages).slice(1, -1)
+  const middleElements = Array.from(allPages)
 
   // ----- Generate middle pages PDF via jsPDF -----
   const middlePdf = new jsPDF('p', 'mm', 'a4')

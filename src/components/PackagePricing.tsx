@@ -21,24 +21,22 @@ export function PackagePricing() {
         </div>
       </CardHeader>
       <CardBody>
-        <div className="max-w-md">
-          <div className="relative">
-            <div className="absolute left-3 top-[38px] pointer-events-none">
-              <IndianRupee className="w-4 h-4 text-ink-300" />
-            </div>
-            <Input
-              id="packageCost"
-              label="Package Cost (Total)"
-              value={packageCost}
-              onChange={(e) => setPackageCost(e.target.value)}
-              placeholder="e.g. ₹3,15,000/-"
-              className="pl-10 text-lg font-display font-semibold"
-            />
+        <div className="relative">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+            <IndianRupee className="w-6 h-6 text-ink-300" />
           </div>
-          <div className="mt-3 flex items-center gap-2 text-xs text-ink-400">
-            <Tag className="w-3 h-3" />
-            Enter the total amount including all services and post-production
-          </div>
+          <Input
+            id="packageCost"
+            label="Package Cost (Total)"
+            value={packageCost}
+            onChange={(e) => setPackageCost(e.target.value)}
+            placeholder="e.g. ₹3,15,000/-"
+            className="pl-14 text-2xl font-display font-bold py-4 h-auto"
+          />
+        </div>
+        <div className="mt-4 flex items-center gap-2 text-sm text-ink-400">
+          <Tag className="w-4 h-4" />
+          Enter the total amount including all services and post-production
         </div>
       </CardBody>
     </Card>

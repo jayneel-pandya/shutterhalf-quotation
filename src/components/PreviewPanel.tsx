@@ -1,12 +1,10 @@
 import { useRef } from 'react'
 import { useQuotationStore } from '../store/useQuotationStore'
 import { PageProvider } from './preview/PageNumberContext'
-import { PreviewCover } from './preview/PreviewCover'
 import { PreviewClientInfo } from './preview/PreviewClientInfo'
 import { PreviewDayServices } from './preview/PreviewDayServices'
 import { PreviewPostProduction } from './preview/PreviewPostProduction'
 import { PreviewPricing } from './preview/PreviewPricing'
-import { PreviewThankYou } from './preview/PreviewThankYou'
 import { DownloadButton } from './DownloadButton'
 import { Button } from './ui/Button'
 import { ArrowLeft, Eye } from 'lucide-react'
@@ -39,12 +37,10 @@ export function PreviewPanel() {
 
       <div ref={previewRef} className="space-y-8 pb-8">
         <PageProvider>
-          <PreviewCover />
           <PreviewClientInfo />
           <PreviewDayServices />
           <PreviewPostProduction />
           <PreviewPricing />
-          <PreviewThankYou />
         </PageProvider>
       </div>
     </div>
