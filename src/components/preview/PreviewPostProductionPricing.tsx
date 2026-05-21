@@ -1,6 +1,7 @@
 import { useQuotationStore } from '../../store/useQuotationStore'
 import { usePageNumber } from './PageNumberContext'
 import { BASE_URL } from '../../utils/baseUrl'
+import { formatIndianCurrency } from '../../utils/formatCurrency'
 
 export function PreviewPostProductionPricing() {
   const pageNum = usePageNumber()
@@ -60,7 +61,7 @@ export function PreviewPostProductionPricing() {
                   Total Package Cost
                 </p>
                 <p className="text-5xl font-body font-bold text-ink-900 text-center tracking-tight break-words">
-                  ₹ {packageCost}
+                  ₹ {formatIndianCurrency(packageCost)}
                 </p>
               </div>
             </div>
