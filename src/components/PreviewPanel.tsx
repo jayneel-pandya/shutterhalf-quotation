@@ -16,20 +16,33 @@ export function PreviewPanel() {
   const previewRef = useRef<HTMLDivElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)
+  const [contentHeight, setContentHeight] = useState(0)
 
   useEffect(() => {
     const wrapper = wrapperRef.current
     if (!wrapper) return
 
-    const observer = new ResizeObserver((entries) => {
+    const scaleObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const width = entry.contentBoxSize?.[0]?.inlineSize ?? entry.contentRect.width
         setScale(Math.min(width / A4_WIDTH_PX, 1))
       }
     })
 
-    observer.observe(wrapper)
-    return () => observer.disconnect()
+    scaleObserver.observe(wrapper)
+    return () => scaleObserver.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const content = previewRef.current
+    if (!content) return
+
+    const heightObserver = new ResizeObserver(() => {
+      setContentHeight(content.scrollHeight)
+    })
+
+    heightObserver.observe(content)
+    return () => heightObserver.disconnect()
   }, [])
 
   return (
@@ -53,8 +66,19 @@ export function PreviewPanel() {
         </div>
       </div>
 
-      <div ref={wrapperRef} className="preview-page-wrapper">
-        <div ref={previewRef} className="space-y-8 pb-8" style={{ '--preview-scale': scale } as React.CSSProperties}>
+      <div
+        ref={wrapperRef}
+        className="preview-page-wrapper"
+        style={{ height: contentHeight ? `${contentHeight * scale}px` : undefined }}
+      >
+        <div
+          ref={previewRef}
+          className="space-y-8 pb-8"
+          style={{
+            transformOrigin: 'top center',
+            transform: `scale(${scale})`,
+          }}
+        >
           <PageProvider>
             <PreviewClientInfo />
             <PreviewDayServices />

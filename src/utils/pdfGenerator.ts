@@ -14,11 +14,7 @@ async function fetchPDFBuffer(path: string): Promise<ArrayBuffer> {
 
 async function captureToCanvas(el: HTMLElement): Promise<HTMLCanvasElement> {
   const originalOverflow = el.style.overflow
-  const originalTransform = el.style.transform
-  const originalScale = el.style.getPropertyValue('--preview-scale')
   el.style.overflow = 'visible'
-  el.style.transform = 'none'
-  el.style.setProperty('--preview-scale', '1')
 
   const canvas = await html2canvas(el, {
     scale: CANVAS_SCALE,
@@ -31,8 +27,6 @@ async function captureToCanvas(el: HTMLElement): Promise<HTMLCanvasElement> {
   })
 
   el.style.overflow = originalOverflow
-  el.style.transform = originalTransform
-  el.style.setProperty('--preview-scale', originalScale)
   return canvas
 }
 
@@ -65,66 +59,73 @@ export async function generatePDF(previewRef: RefObject<HTMLDivElement | null>, 
   const container = previewRef.current
   if (!container) return
 
-  const allPages = container.querySelectorAll<HTMLElement>('[data-preview-page]')
-  if (allPages.length === 0) return
+  const originalTransform = container.style.transform
+  container.style.transform = 'none'
 
-  const middleElements = Array.from(allPages)
+  try {
+    const allPages = container.querySelectorAll<HTMLElement>('[data-preview-page]')
+    if (allPages.length === 0) return
 
-  const [startBytes, endBytes] = await Promise.all([
-    fetchPDFBuffer(`${BASE_URL}quotation-start.pdf`),
-    fetchPDFBuffer(`${BASE_URL}quotation-end.pdf`),
-  ])
+    const middleElements = Array.from(allPages)
 
-  const startDoc = await PDFDocument.load(startBytes, { ignoreEncryption: true })
-  const endDoc = await PDFDocument.load(endBytes, { ignoreEncryption: true })
+    const [startBytes, endBytes] = await Promise.all([
+      fetchPDFBuffer(`${BASE_URL}quotation-start.pdf`),
+      fetchPDFBuffer(`${BASE_URL}quotation-end.pdf`),
+    ])
 
-  const firstPage = startDoc.getPage(0)
-  const targetW = firstPage.getWidth()
-  const targetH = firstPage.getHeight()
-  const targetRatio = targetW / targetH
+    const startDoc = await PDFDocument.load(startBytes, { ignoreEncryption: true })
+    const endDoc = await PDFDocument.load(endBytes, { ignoreEncryption: true })
 
-  const orientation = targetW > targetH ? 'l' : 'p'
-  const middlePdf = new jsPDF({ orientation, unit: 'pt', format: [targetW, targetH] })
+    const firstPage = startDoc.getPage(0)
+    const targetW = firstPage.getWidth()
+    const targetH = firstPage.getHeight()
+    const targetRatio = targetW / targetH
 
-  for (let i = 0; i < middleElements.length; i++) {
-    const canvas = await captureToCanvas(middleElements[i])
-    const cropped = cropToRatio(canvas, targetRatio)
-    const imgData = cropped.toDataURL('image/jpeg', 0.92)
+    const orientation = targetW > targetH ? 'l' : 'p'
+    const middlePdf = new jsPDF({ orientation, unit: 'pt', format: [targetW, targetH] })
 
-    if (i > 0) middlePdf.addPage([targetW, targetH])
+    for (let i = 0; i < middleElements.length; i++) {
+      const canvas = await captureToCanvas(middleElements[i])
+      const cropped = cropToRatio(canvas, targetRatio)
+      const imgData = cropped.toDataURL('image/jpeg', 0.92)
 
-    middlePdf.addImage(imgData, 'JPEG', 0, 0, targetW, targetH, undefined, 'FAST')
+      if (i > 0) middlePdf.addPage([targetW, targetH])
+
+      middlePdf.addImage(imgData, 'JPEG', 0, 0, targetW, targetH, undefined, 'FAST')
+    }
+
+    const middleBytes = middlePdf.output('arraybuffer')
+
+    const mergedPdf = await PDFDocument.create()
+    const middleDoc = await PDFDocument.load(middleBytes)
+
+    const startPages = await mergedPdf.copyPages(startDoc, startDoc.getPageIndices())
+    for (const page of startPages) mergedPdf.addPage(page)
+
+    const midPages = await mergedPdf.copyPages(middleDoc, middleDoc.getPageIndices())
+    for (const page of midPages) {
+      page.setSize(targetW, targetH)
+      mergedPdf.addPage(page)
+    }
+
+    const endPages = await mergedPdf.copyPages(endDoc, endDoc.getPageIndices())
+    for (const page of endPages) mergedPdf.addPage(page)
+
+    const mergedBytes = await mergedPdf.save()
+
+    const safeName = (clientName || 'Quotation').replace(/[^a-zA-Z0-9 _-]/g, '').trim() || 'Quotation'
+    const filename = `Quotation_StudioShutterHalf - ${safeName}.pdf`
+
+    const blob = new Blob([mergedBytes as BlobPart], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = filename
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  } finally {
+    container.style.transform = originalTransform
   }
-
-  const middleBytes = middlePdf.output('arraybuffer')
-
-  const mergedPdf = await PDFDocument.create()
-  const middleDoc = await PDFDocument.load(middleBytes)
-
-  const startPages = await mergedPdf.copyPages(startDoc, startDoc.getPageIndices())
-  for (const page of startPages) mergedPdf.addPage(page)
-
-  const midPages = await mergedPdf.copyPages(middleDoc, middleDoc.getPageIndices())
-  for (const page of midPages) {
-    page.setSize(targetW, targetH)
-    mergedPdf.addPage(page)
-  }
-
-  const endPages = await mergedPdf.copyPages(endDoc, endDoc.getPageIndices())
-  for (const page of endPages) mergedPdf.addPage(page)
-
-  const mergedBytes = await mergedPdf.save()
-
-  const safeName = (clientName || 'Quotation').replace(/[^a-zA-Z0-9 _-]/g, '').trim() || 'Quotation'
-  const filename = `Quotation_StudioShutterHalf - ${safeName}.pdf`
-
-  const blob = new Blob([mergedBytes as BlobPart], { type: 'application/pdf' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = filename
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
 }
