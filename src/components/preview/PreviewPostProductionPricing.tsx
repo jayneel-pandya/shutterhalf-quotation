@@ -36,8 +36,7 @@ export function PreviewPostProductionPricing() {
               </h3>
               <div className="space-y-1">
                 {items.map((item) => (
-                  <div key={item.name} className="flex items-center gap-3 py-1.5 border-b border-ink-50">
-                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
+                  <div key={item.name} className="flex items-center gap-3 py-1.5">
                     <span className="flex-1 text-base font-bold text-ink-800">{item.name}</span>
                     {item.value > 0 && (
                       <div className="flex items-center gap-1.5">
@@ -56,7 +55,7 @@ export function PreviewPostProductionPricing() {
           {packageCost && (
             <div className="mt-auto">
               <div className="w-full gold-divider mb-6" />
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-ink-100">
+              <div>
                 <p className="text-sm text-ink-500 uppercase tracking-wider font-bold text-center mb-2">
                   Total Package Cost
                 </p>

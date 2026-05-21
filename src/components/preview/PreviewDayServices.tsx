@@ -69,9 +69,8 @@ function BatchPage({ batch }: {
                 {day.services.map((svc: { name: string; quantity: number }) => (
                   <div
                     key={svc.name}
-                    className="flex items-center gap-3 py-1.5 border-b border-ink-50"
+                    className="flex items-center gap-3 py-1.5"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" />
                     <span className="flex-1 text-base font-bold text-ink-800">{svc.name}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-ink-500 font-bold">Qty:</span>
