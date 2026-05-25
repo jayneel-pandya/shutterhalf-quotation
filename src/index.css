@@ -24,7 +24,7 @@
     height: 297mm;
     overflow: hidden;
     @apply bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)] mx-auto;
-    background-image: url('/studioshutterhalf/blank-photo.jpeg');
+    background-image: url('/shutterhalf-quotation/blank-photo.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
