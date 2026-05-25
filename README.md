@@ -154,8 +154,8 @@ When the user clicks Download, the quotation data is sent to a Google Apps Scrip
 ### Installation
 
 ```bash
-git clone https://github.com/YashVadhadiya/studioshutterhalf.git
-cd studioshutterhalf
+git clone https://github.com/jayneel-pandya/shutterhalf-quotation.git
+cd shutterhalf-quotation
 npm install
 ```
 
@@ -186,7 +186,7 @@ npm run lint
 ## Project Structure
 
 ```
-studioshutterhalf/
+shutterhalf-quotation/
 ├── public/                          # Static assets (copied to dist)
 │   ├── favicon.svg                  # Browser tab icon
 │   ├── logo.svg / logo.png          # Studio logo
@@ -262,7 +262,7 @@ Every push to the `main` branch triggers the workflow in `.github/workflows/depl
 The live site is available at:
 
 ```
-https://YashVadhadiya.github.io/studioshutterhalf/
+https://jayneel-pandya.github.io/shutterhalf-quotation/
 ```
 
 ### Manual
