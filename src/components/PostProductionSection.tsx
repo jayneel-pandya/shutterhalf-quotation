@@ -61,16 +61,14 @@ export function PostProductionSection() {
                     <div className="flex items-center gap-2 mt-2">
                       <span className="text-xs text-ink-500 font-medium">Approx</span>
                       <input
-                        type="number"
-                        min={0}
-                        value={selectedItem.value || ''}
+                        type="text"
+                        value={selectedItem.value}
                         onChange={(e) => {
-                          const val = parseInt(e.target.value, 10)
-                          updateValue(pp.name, isNaN(val) ? 0 : val)
+                          updateValue(pp.name, e.target.value)
                         }}
                         onClick={(e) => e.stopPropagation()}
-                        className="w-20 px-2 py-1 text-sm text-center bg-white border border-ink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-400 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                        placeholder="0"
+                        className="w-20 px-2 py-1 text-sm text-center bg-white border border-ink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-400"
+                        placeholder="e.g. 30-40"
                       />
                       {pp.unit && (
                         <span className="text-xs text-ink-500">{pp.unit}</span>

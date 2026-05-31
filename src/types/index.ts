@@ -13,7 +13,7 @@ export interface PostProductionItem {
   name: string
   spec: string
   unit: string
-  value: number
+  value: string
 }
 
 export interface AvailablePostProduction {

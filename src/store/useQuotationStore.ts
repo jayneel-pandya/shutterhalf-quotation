@@ -31,7 +31,7 @@ interface QuotationState {
   updateServiceQuantity: (dayId: string, serviceName: string, quantity: number) => void
 
   togglePostProduction: (name: string) => void
-  updatePostProductionValue: (name: string, value: number) => void
+  updatePostProductionValue: (name: string, value: string) => void
 
   setPackageCost: (cost: string) => void
   resetAll: () => void
@@ -107,7 +107,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
       return {
         postProduction: [
           ...state.postProduction,
-          { name, spec: found?.spec || '', unit: found?.unit || '', value: 0 },
+          { name, spec: found?.spec || '', unit: found?.unit || '', value: '' },
         ],
       }
     }),
