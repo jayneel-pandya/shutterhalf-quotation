@@ -14,6 +14,7 @@ export interface PostProductionItem {
   spec: string
   unit: string
   value: string
+  quantity: number
 }
 
 export interface AvailablePostProduction {

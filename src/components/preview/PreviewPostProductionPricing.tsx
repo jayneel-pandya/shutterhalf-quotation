@@ -39,14 +39,22 @@ export function PreviewPostProductionPricing() {
                 {items.map((item) => (
                   <div key={item.name} className="flex items-center gap-3 py-1.5">
                     <span className="flex-1 text-base font-bold text-ink-800">{item.name}</span>
-                    {item.value !== '' && (
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs text-ink-500 uppercase tracking-wider font-bold">Approx</span>
-                        <span className="text-base font-bold text-ink-800 tabular-nums">
-                          {item.value}{item.unit ? ` ${item.unit}` : ''}
-                        </span>
-                      </div>
-                    )}
+                    <div className="flex items-center gap-3">
+                      {item.quantity > 1 && (
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-ink-500 uppercase tracking-wider font-bold">Qty</span>
+                          <span className="text-base font-bold text-ink-800 tabular-nums">{item.quantity}</span>
+                        </div>
+                      )}
+                      {item.value !== '' && (
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-ink-500 uppercase tracking-wider font-bold">Approx</span>
+                          <span className="text-base font-bold text-ink-800 tabular-nums">
+                            {item.value}{item.unit ? ` ${item.unit}` : ''}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>

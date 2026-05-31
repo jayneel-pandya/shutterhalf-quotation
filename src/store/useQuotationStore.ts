@@ -32,6 +32,7 @@ interface QuotationState {
 
   togglePostProduction: (name: string) => void
   updatePostProductionValue: (name: string, value: string) => void
+  updatePostProductionQuantity: (name: string, quantity: number) => void
 
   setPackageCost: (cost: string) => void
   resetAll: () => void
@@ -107,7 +108,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
       return {
         postProduction: [
           ...state.postProduction,
-          { name, spec: found?.spec || '', unit: found?.unit || '', value: '' },
+          { name, spec: found?.spec || '', unit: found?.unit || '', value: '', quantity: 1 },
         ],
       }
     }),
@@ -116,6 +117,13 @@ export const useQuotationStore = create<QuotationState>((set) => ({
     set((state) => ({
       postProduction: state.postProduction.map((p) =>
         p.name === name ? { ...p, value } : p
+      ),
+    })),
+
+  updatePostProductionQuantity: (name, quantity) =>
+    set((state) => ({
+      postProduction: state.postProduction.map((p) =>
+        p.name === name ? { ...p, quantity: Math.max(1, quantity) } : p
       ),
     })),
 

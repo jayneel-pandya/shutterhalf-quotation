@@ -2,12 +2,13 @@ import { useQuotationStore } from '../store/useQuotationStore'
 import { AVAILABLE_POST_PRODUCTION } from '../constants/services'
 import { Card, CardBody, CardHeader } from './ui/Card'
 import { Badge } from './ui/Badge'
-import { Film } from 'lucide-react'
+import { Film, Minus, Plus } from 'lucide-react'
 
 export function PostProductionSection() {
   const items = useQuotationStore((s) => s.postProduction)
   const toggleItem = useQuotationStore((s) => s.togglePostProduction)
   const updateValue = useQuotationStore((s) => s.updatePostProductionValue)
+  const updateQuantity = useQuotationStore((s) => s.updatePostProductionQuantity)
 
   return (
     <Card>
@@ -73,6 +74,26 @@ export function PostProductionSection() {
                       {pp.unit && (
                         <span className="text-xs text-ink-500">{pp.unit}</span>
                       )}
+                      <div className="flex items-center gap-1 ml-1" onClick={(e) => e.stopPropagation()}>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(pp.name, selectedItem.quantity - 1)}
+                          disabled={selectedItem.quantity <= 1}
+                          className="p-0.5 rounded text-ink-400 hover:text-ink-700 hover:bg-ink-100 disabled:opacity-30 transition-colors"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="w-5 text-center text-xs font-semibold text-ink-800 tabular-nums">
+                          {selectedItem.quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(pp.name, selectedItem.quantity + 1)}
+                          className="p-0.5 rounded text-ink-400 hover:text-ink-700 hover:bg-ink-100 transition-colors"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
