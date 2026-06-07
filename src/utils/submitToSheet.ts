@@ -13,12 +13,19 @@ export interface SheetPayload {
 
 const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwi9Pr89jFmDIcEuJpRP41hhTHmIZN3uGBkSSBdAPokVhZ4hVuTrcPKAgDSgjCjokuvRw/exec'
 
+function sanitizePayload(data: SheetPayload): SheetPayload {
+  return {
+    ...data,
+    contactNumber: data.contactNumber.replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+'),
+  }
+}
+
 export async function submitToSheet(data: SheetPayload): Promise<{ success: boolean }> {
   try {
     const res = await fetch(SHEET_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(sanitizePayload(data)),
     })
 
     if (!res.ok) {

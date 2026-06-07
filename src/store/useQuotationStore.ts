@@ -50,7 +50,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   currentStep: 0,
 
   setClientName: (v) => set({ clientName: v }),
-  setContactNumber: (v) => set({ contactNumber: v }),
+  setContactNumber: (v) => set({ contactNumber: v.replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+') }),
   setVenue: (v) => set({ venue: v }),
   setLocation: (v) => set({ location: v }),
   setEventDates: (v) => set({ eventDates: v }),

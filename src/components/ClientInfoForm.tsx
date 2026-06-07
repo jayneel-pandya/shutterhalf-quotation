@@ -25,7 +25,7 @@ export function ClientInfoForm() {
 
   const fields = [
     { id: 'clientName', label: 'Client Name', value: clientName, icon: User, type: 'text' },
-    { id: 'contactNumber', label: 'Contact Number', value: contactNumber, icon: Phone, type: 'tel' },
+    { id: 'contactNumber', label: 'Contact Number', value: contactNumber, icon: Phone, type: 'tel', inputMode: 'tel' as const },
     { id: 'venue', label: 'Venue', value: venue, icon: MapPin, type: 'text' },
     { id: 'location', label: 'Location', value: location, icon: Globe, type: 'text' },
     { id: 'eventDates', label: 'Event Dates', value: eventDates, icon: Calendar, type: 'text' },
@@ -46,7 +46,7 @@ export function ClientInfoForm() {
       </CardHeader>
       <CardBody>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {fields.map(({ id, label, value, icon: Icon, type }) => (
+          {fields.map(({ id, label, value, icon: Icon, type, inputMode }) => (
             <div key={id} className="relative">
               <div className="absolute left-3 top-[38px] pointer-events-none">
                 <Icon className="w-4 h-4 text-ink-300" />
@@ -57,6 +57,7 @@ export function ClientInfoForm() {
                 value={value}
                 onChange={(e) => setters[id](e.target.value)}
                 type={type}
+                inputMode={inputMode}
                 className="pl-10"
               />
             </div>
