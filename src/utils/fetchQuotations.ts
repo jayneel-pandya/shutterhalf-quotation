@@ -1,7 +1,7 @@
 import type { Day, PostProductionItem } from '../types'
 
 const SHEET_WEBHOOK_URL =
-  'https://script.google.com/macros/s/AKfycbynYOa70wa5pFgvRo5ZM3t5ipD9DyNIRlDF_TAESD4yDAqrdBS_JlTPvcOVYr9BcfLgjQ/exec'
+  'https://script.google.com/macros/s/AKfycbxfEHKP2-Wb2a4FrmhHrbHMMqAzzw9WaBx9kg0EvWW-jIaJ2t1fSWqqcK9y7iyq7GkT/exec'
 
 export interface QuotationRow {
   row: number
