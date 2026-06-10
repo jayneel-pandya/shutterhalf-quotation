@@ -15,6 +15,11 @@ interface QuotationState {
   postProduction: PostProductionItem[]
   packageCost: string
   currentStep: number
+  originalSnapshot: {
+    days: Day[]
+    postProduction: PostProductionItem[]
+    packageCost: string
+  } | null
 
   setClientName: (v: string) => void
   setContactNumber: (v: string) => void
@@ -24,6 +29,7 @@ interface QuotationState {
   setCurrentStep: (step: number) => void
   setDays: (days: Day[]) => void
   setPostProduction: (items: PostProductionItem[]) => void
+  setOriginalSnapshot: (data: { days: Day[]; postProduction: PostProductionItem[]; packageCost: string } | null) => void
 
   addDay: (label?: string) => void
   removeDay: (id: string) => void
@@ -60,6 +66,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   postProduction: [],
   packageCost: '',
   currentStep: 0,
+  originalSnapshot: null,
 
   setClientName: (v) => set({ clientName: v }),
   setContactNumber: (v) => set({ contactNumber: v.replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+') }),
@@ -69,6 +76,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   setCurrentStep: (step) => set({ currentStep: step }),
   setDays: (days) => set({ days }),
   setPostProduction: (postProduction) => set({ postProduction }),
+  setOriginalSnapshot: (originalSnapshot) => set({ originalSnapshot }),
 
   addDay: (label) =>
     set((state) => ({
@@ -154,6 +162,11 @@ export const useQuotationStore = create<QuotationState>((set) => ({
       days: data.days,
       postProduction: data.postProduction,
       packageCost: data.packageCost,
+      originalSnapshot: {
+        days: data.days,
+        postProduction: data.postProduction,
+        packageCost: data.packageCost,
+      },
       currentStep: 1,
     }),
 
@@ -168,5 +181,6 @@ export const useQuotationStore = create<QuotationState>((set) => ({
       postProduction: [],
       packageCost: '',
       currentStep: 0,
+      originalSnapshot: null,
     }),
 }))

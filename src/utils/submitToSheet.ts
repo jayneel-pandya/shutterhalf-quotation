@@ -1,5 +1,11 @@
 import type { Day, PostProductionItem } from '../types'
 
+export interface ChangedSections {
+  services: boolean
+  postProduction: boolean
+  packageCost: boolean
+}
+
 export interface SheetPayload {
   clientName: string
   contactNumber: string
@@ -9,6 +15,7 @@ export interface SheetPayload {
   days: Day[]
   postProduction: PostProductionItem[]
   packageCost: string
+  changedSections?: ChangedSections
 }
 
 const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxfEHKP2-Wb2a4FrmhHrbHMMqAzzw9WaBx9kg0EvWW-jIaJ2t1fSWqqcK9y7iyq7GkT/exec'
@@ -20,7 +27,7 @@ function sanitizePayload(data: SheetPayload): SheetPayload {
   }
 }
 
-export async function submitToSheet(data: SheetPayload): Promise<{ success: boolean }> {
+export async function submitToSheet(data: SheetPayload): Promise<{ success: boolean; error?: string }> {
   try {
     const res = await fetch(SHEET_WEBHOOK_URL, {
       method: 'POST',
@@ -29,15 +36,24 @@ export async function submitToSheet(data: SheetPayload): Promise<{ success: bool
     })
 
     if (!res.ok) {
-      console.warn(`[Sheet] Server returned ${res.status}: ${res.statusText}`)
-      return { success: false }
+      const text = await res.text().catch(() => '')
+      const msg = `Sheet server returned ${res.status}: ${res.statusText}${text ? ` — ${text}` : ''}`
+      console.warn('[Sheet] ' + msg)
+      return { success: false, error: msg }
     }
 
     const result = await res.json()
+    if (!result.success) {
+      const msg = result.error || 'Sheet server returned an error'
+      console.warn('[Sheet] ' + msg)
+      return { success: false, error: msg }
+    }
+
     console.log('[Sheet] Quotation logged successfully:', result)
     return { success: true }
   } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
     console.error('[Sheet] Failed to log quotation:', err)
-    return { success: false }
+    return { success: false, error: msg }
   }
 }

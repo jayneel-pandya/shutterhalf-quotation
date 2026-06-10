@@ -52,8 +52,9 @@ function doOptions() {
 
 function logQuotation(data) {
   const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet()
+  const changed = data.changedSections || {}
 
-  const servicesStr = (data.days || [])
+  let servicesStr = (data.days || [])
     .filter((d) => d.services && d.services.length > 0)
     .map((d) => {
       const services = d.services
@@ -63,7 +64,11 @@ function logQuotation(data) {
     })
     .join('\n\n')
 
-  const postProdStr = (data.postProduction || [])
+  if (changed.services && servicesStr) {
+    servicesStr = '\u2726 EDITED\n' + servicesStr
+  }
+
+  let postProdStr = (data.postProduction || [])
     .filter((p) => p.name)
     .map((p) => {
       let line = `\u25b6 ${p.name}`
@@ -77,6 +82,25 @@ function logQuotation(data) {
     })
     .join('\n')
 
+  if (changed.postProduction && postProdStr) {
+    postProdStr = '\u2726 EDITED\n' + postProdStr
+  }
+
+  let packageCost = data.packageCost || ''
+  if (changed.packageCost && packageCost) {
+    packageCost += ' \u2726 EDITED'
+  }
+
+  const rawPayload = {
+    days: data.days || [],
+    postProduction: data.postProduction || [],
+    packageCost: data.packageCost || '',
+  }
+
+  if (changed.services || changed.postProduction || changed.packageCost) {
+    rawPayload.changedSections = changed
+  }
+
   sheet.appendRow([
     new Date(),
     data.clientName || '',
@@ -86,12 +110,8 @@ function logQuotation(data) {
     data.eventDates || '',
     servicesStr,
     postProdStr,
-    data.packageCost || '',
-    JSON.stringify({
-      days: data.days || [],
-      postProduction: data.postProduction || [],
-      packageCost: data.packageCost || '',
-    }),
+    packageCost,
+    JSON.stringify(rawPayload),
   ])
 
   return jsonResponse({ success: true })
