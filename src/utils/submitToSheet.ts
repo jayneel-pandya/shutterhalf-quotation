@@ -23,7 +23,7 @@ const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwRtWlFLGzWzx
 function sanitizePayload(data: SheetPayload): SheetPayload {
   return {
     ...data,
-    contactNumber: data.contactNumber.replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+'),
+    contactNumber: String(data.contactNumber ?? '').replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+'),
   }
 }
 

@@ -69,7 +69,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   originalSnapshot: null,
 
   setClientName: (v) => set({ clientName: v }),
-  setContactNumber: (v) => set({ contactNumber: v.replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+') }),
+  setContactNumber: (v) => set({ contactNumber: String(v ?? '').replace(/[^\d+]/g, '').replace(/^(\+{2,})/, '+') }),
   setVenue: (v) => set({ venue: v }),
   setLocation: (v) => set({ location: v }),
   setEventDates: (v) => set({ eventDates: v }),
@@ -155,7 +155,7 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   loadQuotation: (data) =>
     set({
       clientName: data.clientName,
-      contactNumber: data.contactNumber,
+      contactNumber: String(data.contactNumber ?? ''),
       venue: data.venue,
       location: data.location,
       eventDates: data.eventDates,
