@@ -22,6 +22,8 @@ interface QuotationState {
   setLocation: (v: string) => void
   setEventDates: (v: string) => void
   setCurrentStep: (step: number) => void
+  setDays: (days: Day[]) => void
+  setPostProduction: (items: PostProductionItem[]) => void
 
   addDay: (label?: string) => void
   removeDay: (id: string) => void
@@ -55,6 +57,8 @@ export const useQuotationStore = create<QuotationState>((set) => ({
   setLocation: (v) => set({ location: v }),
   setEventDates: (v) => set({ eventDates: v }),
   setCurrentStep: (step) => set({ currentStep: step }),
+  setDays: (days) => set({ days }),
+  setPostProduction: (postProduction) => set({ postProduction }),
 
   addDay: (label) =>
     set((state) => ({

@@ -14,7 +14,8 @@
  *
  * SHEET COLUMNS (in order):
  * A: Timestamp | B: Client Name | C: Contact | D: Venue | E: Location
- * F: Event Dates | G: Services (per day) | H: Post Production | I: Package Cost
+ * F: Event Dates | G: Services (formatted) | H: Post Production (formatted)
+ * I: Package Cost | J: Raw JSON (machine-readable)
  */
 
 const SHEET_ID = '13ikuok_sfckORjVusOYlP2SS6b1GncoMK7FpmEEm0zc'
@@ -25,6 +26,10 @@ function doPost(e) {
 
     if (data.action === 'test') {
       return addTestRow()
+    }
+
+    if (data.action === 'list') {
+      return listQuotations()
     }
 
     return logQuotation(data)
@@ -82,9 +87,51 @@ function logQuotation(data) {
     servicesStr,
     postProdStr,
     data.packageCost || '',
+    JSON.stringify({
+      days: data.days || [],
+      postProduction: data.postProduction || [],
+      packageCost: data.packageCost || '',
+    }),
   ])
 
   return jsonResponse({ success: true })
+}
+
+function listQuotations() {
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet()
+  const rows = sheet.getDataRange().getValues()
+
+  const quotations = []
+
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i]
+    const timestamp = r[0]
+    const clientName = r[1] || ''
+    if (!clientName) continue
+
+    let rawData = null
+    const rawJson = r[9]
+    if (rawJson) {
+      try {
+        rawData = JSON.parse(rawJson)
+      } catch (e) {
+        /* not parseable — old entry without JSON */
+      }
+    }
+
+    quotations.push({
+      row: i + 1,
+      timestamp: timestamp ? String(timestamp) : '',
+      clientName,
+      contactNumber: r[2] || '',
+      venue: r[3] || '',
+      location: r[4] || '',
+      eventDates: r[5] || '',
+      rawData,
+    })
+  }
+
+  return jsonResponse({ success: true, data: quotations })
 }
 
 function addTestRow() {
@@ -99,6 +146,7 @@ function addTestRow() {
     'Test Service(x1)',
     'Test Post Production',
     '10000',
+    '',
   ])
   return jsonResponse({ success: true, message: 'Test row added' })
 }

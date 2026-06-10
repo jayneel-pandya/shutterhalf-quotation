@@ -37,6 +37,7 @@ export const DAY_LABEL_PRESETS = [
 ]
 
 export const STEP_LABELS = [
+  'Start',
   'Client Details',
   'Event Days',
   'Services',

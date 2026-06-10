@@ -1,5 +1,6 @@
 import { useQuotationStore } from './store/useQuotationStore'
 import { StepIndicator } from './components/StepIndicator'
+import { LoadQuotation } from './components/LoadQuotation'
 import { ClientInfoForm } from './components/ClientInfoForm'
 import { DayBuilder } from './components/DayBuilder'
 import { ServiceSelector } from './components/ServiceSelector'
@@ -10,7 +11,7 @@ import { Button } from './components/ui/Button'
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react'
 import { BASE_URL } from './utils/baseUrl'
 
-const TOTAL_STEPS = 6
+const TOTAL_STEPS = 7
 
 export default function App() {
   const currentStep = useQuotationStore((s) => s.currentStep)
@@ -18,6 +19,7 @@ export default function App() {
   const resetAll = useQuotationStore((s) => s.resetAll)
 
   const stepComponents = [
+    <LoadQuotation />,
     <ClientInfoForm />,
     <DayBuilder />,
     <ServiceSelector />,
@@ -51,7 +53,7 @@ export default function App() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-        {currentStep < TOTAL_STEPS - 1 && (
+        {currentStep > 0 && currentStep < TOTAL_STEPS - 1 && (
           <div className="mb-8 no-print">
             <StepIndicator />
           </div>
@@ -61,7 +63,7 @@ export default function App() {
           {stepComponents[currentStep]}
         </div>
 
-        {currentStep < TOTAL_STEPS - 1 && (
+        {currentStep > 0 && currentStep < TOTAL_STEPS - 1 && (
           <div className="mt-8 flex items-center justify-between no-print">
             <Button
               variant="ghost"
@@ -75,7 +77,7 @@ export default function App() {
 
             <div className="flex items-center gap-3">
               <span className="text-xs text-ink-400">
-                Step {currentStep + 1} of {TOTAL_STEPS - 1}
+                Step {currentStep} of {TOTAL_STEPS - 1}
               </span>
               <Button
                 variant="primary"
