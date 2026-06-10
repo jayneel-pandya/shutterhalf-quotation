@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import type { Day, PostProductionItem } from '../types'
-import { AVAILABLE_POST_PRODUCTION } from '../constants/services'
+import { AVAILABLE_SERVICES, AVAILABLE_POST_PRODUCTION } from '../constants/services'
 
 let idCounter = 0
 const genId = () => `id_${++idCounter}_${Math.random().toString(36).slice(2, 6)}`
@@ -81,7 +81,8 @@ export const useQuotationStore = create<QuotationState>((set) => ({
         if (exists) {
           return { ...d, services: d.services.filter((s) => s.name !== serviceName) }
         }
-        return { ...d, services: [...d.services, { name: serviceName, quantity: 1 }] }
+        const category = AVAILABLE_SERVICES.find((s) => s.name === serviceName)?.category || ''
+        return { ...d, services: [...d.services, { name: serviceName, quantity: 1, category }] }
       }),
     })),
 

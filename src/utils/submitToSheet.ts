@@ -11,7 +11,7 @@ export interface SheetPayload {
   packageCost: string
 }
 
-const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwi9Pr89jFmDIcEuJpRP41hhTHmIZN3uGBkSSBdAPokVhZ4hVuTrcPKAgDSgjCjokuvRw/exec'
+const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbynYOa70wa5pFgvRo5ZM3t5ipD9DyNIRlDF_TAESD4yDAqrdBS_JlTPvcOVYr9BcfLgjQ/exec'
 
 function sanitizePayload(data: SheetPayload): SheetPayload {
   return {

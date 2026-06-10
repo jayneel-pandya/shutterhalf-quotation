@@ -49,12 +49,28 @@ function logQuotation(data) {
   const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet()
 
   const servicesStr = (data.days || [])
-    .map((d) => `${d.label}: ${(d.services || []).map((s) => `${s.name}(x${s.quantity})`).join(', ')}`)
-    .join(' | ')
+    .filter((d) => d.services && d.services.length > 0)
+    .map((d) => {
+      const services = d.services
+        .map((s) => `  \u25b6 ${s.name} (\u00d7${s.quantity})`)
+        .join('\n')
+      return `\u2015\u2015 ${d.label} \u2015\u2015\n${services}`
+    })
+    .join('\n\n')
 
   const postProdStr = (data.postProduction || [])
-    .map((p) => `${p.name}${p.value > 0 ? ` ~${p.value} ${p.unit}` : ''}`)
-    .join(', ')
+    .filter((p) => p.name)
+    .map((p) => {
+      let line = `\u25b6 ${p.name}`
+      if (p.value !== undefined && p.value !== '' && p.value !== null) {
+        line += ` ~${p.value}${p.unit ? ' ' + p.unit : ''}`
+      }
+      if (p.quantity > 1) {
+        line += ` (\u00d7${p.quantity})`
+      }
+      return line
+    })
+    .join('\n')
 
   sheet.appendRow([
     new Date(),
