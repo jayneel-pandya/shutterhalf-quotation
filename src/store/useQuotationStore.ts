@@ -37,6 +37,16 @@ interface QuotationState {
   updatePostProductionQuantity: (name: string, quantity: number) => void
 
   setPackageCost: (cost: string) => void
+  loadQuotation: (data: {
+    clientName: string
+    contactNumber: string
+    venue: string
+    location: string
+    eventDates: string
+    days: Day[]
+    postProduction: PostProductionItem[]
+    packageCost: string
+  }) => void
   resetAll: () => void
 }
 
@@ -133,6 +143,19 @@ export const useQuotationStore = create<QuotationState>((set) => ({
     })),
 
   setPackageCost: (cost) => set({ packageCost: cost }),
+
+  loadQuotation: (data) =>
+    set({
+      clientName: data.clientName,
+      contactNumber: data.contactNumber,
+      venue: data.venue,
+      location: data.location,
+      eventDates: data.eventDates,
+      days: data.days,
+      postProduction: data.postProduction,
+      packageCost: data.packageCost,
+      currentStep: 1,
+    }),
 
   resetAll: () =>
     set({

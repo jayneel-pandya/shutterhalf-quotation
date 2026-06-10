@@ -6,15 +6,8 @@ import { Button } from './ui/Button'
 import { FilePlus, FolderOpen, Search, Loader2, AlertCircle } from 'lucide-react'
 
 export function LoadQuotation() {
+  const loadQuotation = useQuotationStore((s) => s.loadQuotation)
   const setCurrentStep = useQuotationStore((s) => s.setCurrentStep)
-  const setClientName = useQuotationStore((s) => s.setClientName)
-  const setContactNumber = useQuotationStore((s) => s.setContactNumber)
-  const setVenue = useQuotationStore((s) => s.setVenue)
-  const setLocation = useQuotationStore((s) => s.setLocation)
-  const setEventDates = useQuotationStore((s) => s.setEventDates)
-  const setDays = useQuotationStore((s) => s.setDays)
-  const setPostProduction = useQuotationStore((s) => s.setPostProduction)
-  const setPackageCost = useQuotationStore((s) => s.setPackageCost)
 
   const [mode, setMode] = useState<'new' | 'load' | null>(null)
   const [quotations, setQuotations] = useState<QuotationRow[]>([])
@@ -66,19 +59,16 @@ export function LoadQuotation() {
   const handleLoad = () => {
     if (!selectedRow) return
 
-    setClientName(selectedRow.clientName)
-    setContactNumber(selectedRow.contactNumber)
-    setVenue(selectedRow.venue)
-    setLocation(selectedRow.location)
-    setEventDates(selectedRow.eventDates)
-
-    if (selectedRow.rawData) {
-      setDays(selectedRow.rawData.days)
-      setPostProduction(selectedRow.rawData.postProduction)
-      setPackageCost(selectedRow.rawData.packageCost)
-    }
-
-    setCurrentStep(1)
+    loadQuotation({
+      clientName: selectedRow.clientName,
+      contactNumber: selectedRow.contactNumber,
+      venue: selectedRow.venue,
+      location: selectedRow.location,
+      eventDates: selectedRow.eventDates,
+      days: selectedRow.rawData?.days ?? [],
+      postProduction: selectedRow.rawData?.postProduction ?? [],
+      packageCost: selectedRow.rawData?.packageCost ?? '',
+    })
   }
 
   if (mode === 'load') {
