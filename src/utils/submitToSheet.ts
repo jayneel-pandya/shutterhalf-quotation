@@ -18,7 +18,7 @@ export interface SheetPayload {
   changedSections?: ChangedSections
 }
 
-const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwRtWlFLGzWzx6RMtbWrEjG_STayQ1-b5Ie-R5f3hEvIUgUmk_QBBfpHXFjmWp1fzYVrg/exec'
+const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxRbv7LzMFCDOoFwo9kegyPxATq2l_zeBsPYg_LuqAt4iqcbJS9LcpcnXBQbMmTirQgRg/exec'
 
 function sanitizePayload(data: SheetPayload): SheetPayload {
   return {

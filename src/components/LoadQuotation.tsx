@@ -3,9 +3,13 @@ import { useQuotationStore } from '../store/useQuotationStore'
 import { fetchQuotations, type QuotationRow } from '../utils/fetchQuotations'
 import { Card, CardBody } from './ui/Card'
 import { Button } from './ui/Button'
-import { FilePlus, FolderOpen, Search, Loader2, AlertCircle } from 'lucide-react'
+import { FilePlus, FolderOpen, Search, Loader2, AlertCircle, Users } from 'lucide-react'
 
-export function LoadQuotation() {
+interface LoadQuotationProps {
+  onTeamManagement?: () => void
+}
+
+export function LoadQuotation({ onTeamManagement }: LoadQuotationProps) {
   const loadQuotation = useQuotationStore((s) => s.loadQuotation)
   const setCurrentStep = useQuotationStore((s) => s.setCurrentStep)
 
@@ -219,6 +223,22 @@ export function LoadQuotation() {
                 <p className="text-xs text-ink-400 mt-0.5">Edit a past quotation</p>
               </div>
             </button>
+
+            {onTeamManagement && (
+              <button
+                type="button"
+                onClick={onTeamManagement}
+                className="w-56 flex flex-col items-center gap-3 p-6 rounded-xl border-2 border-ink-200 bg-white hover:border-brand-400 hover:bg-brand-50 transition-all duration-200 group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-ink-100 flex items-center justify-center group-hover:bg-brand-100 transition-colors">
+                  <Users className="w-6 h-6 text-ink-600 group-hover:text-brand-700" />
+                </div>
+                <div>
+                  <p className="text-base font-display font-bold text-ink-800">Team Management</p>
+                  <p className="text-xs text-ink-400 mt-0.5">Assign crew to approved clients</p>
+                </div>
+              </button>
+            )}
           </div>
         </div>
       </CardBody>

@@ -39,3 +39,45 @@ export interface AvailableService {
   name: string
   category: string
 }
+
+export interface TeamMember {
+  id: number
+  name: string
+  role: string
+  phone: string
+  notes: string
+  status: 'Active' | 'Inactive'
+}
+
+export interface TeamAssignment {
+  id: number
+  clientName: string
+  dayLabel: string
+  role: string
+  quantityNeeded: number
+  assignedMembers: string[]
+  status: 'Active' | 'Conflict'
+  forceAssigned: boolean
+  timestamp: string
+}
+
+export interface ConflictInfo {
+  personName: string
+  existingClient: string
+  existingDay: string
+  existingRole: string
+}
+
+export interface ApprovedClient {
+  row: number
+  clientName: string
+  contactNumber: string
+  venue: string
+  location: string
+  eventDates: string
+  rawData: {
+    days: Day[]
+    postProduction: PostProductionItem[]
+    packageCost: string
+  } | null
+}

@@ -7,19 +7,49 @@ import { ServiceSelector } from './components/ServiceSelector'
 import { PostProductionSection } from './components/PostProductionSection'
 import { PackagePricing } from './components/PackagePricing'
 import { PreviewPanel } from './components/PreviewPanel'
+import { TeamManagement } from './components/TeamManagement'
 import { Button } from './components/ui/Button'
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react'
 import { BASE_URL } from './utils/baseUrl'
+import { useState } from 'react'
 
 const TOTAL_STEPS = 7
 
 export default function App() {
+  const [view, setView] = useState<'quotation' | 'team'>('quotation')
   const currentStep = useQuotationStore((s) => s.currentStep)
   const setCurrentStep = useQuotationStore((s) => s.setCurrentStep)
   const resetAll = useQuotationStore((s) => s.resetAll)
 
+  if (view === 'team') {
+    return (
+      <div className="min-h-screen bg-ink-50">
+        <header className="bg-white border-b border-ink-100 no-print">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <img
+                src={`${BASE_URL}logo.png`}
+                alt="Studio Shutter Half"
+                className="h-9 sm:h-10 w-auto shrink-0"
+              />
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-lg font-display font-bold text-ink-800 leading-tight truncate">
+                  Studio Shutter Half
+                </h1>
+                <p className="text-[10px] sm:text-[11px] text-ink-400 tracking-wide truncate">Team Management</p>
+              </div>
+            </div>
+          </div>
+        </header>
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+          <TeamManagement onBack={() => setView('quotation')} />
+        </main>
+      </div>
+    )
+  }
+
   const stepComponents = [
-    <LoadQuotation />,
+    <LoadQuotation onTeamManagement={() => setView('team')} />,
     <ClientInfoForm />,
     <DayBuilder />,
     <ServiceSelector />,
